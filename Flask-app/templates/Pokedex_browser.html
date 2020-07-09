@@ -1,0 +1,133 @@
+{% extends "BasePage.html" %}
+{% block Head %}{% endblock %}
+{% block Title %}Pokedex browser{% endblock %}
+{% block content %}
+  <div class="centerDiv">
+    <form action="javascript:SubmitQuery();">
+      <div class="centerForm">
+        <div>
+          <label for="gen1">Generation 1</label>
+          <input type="checkbox" id="gen1" name="gen1" checked="checked">
+        </div>
+        <div>
+          <label for="gen2">Generation 2</label>
+          <input type="checkbox" id="gen2" name="gen2" checked="checked">
+        </div>
+        <div>
+          <label for="gen3">Generation 3</label>
+          <input type="checkbox" id="gen3" name="gen3" checked="checked">
+        </div>
+        <div>
+          <label for="gen4">Generation 4</label>
+          <input type="checkbox" id="gen4" name="gen4" checked="checked">
+        </div>
+        <div>
+          <label for="gen5">Generation 5</label>
+          <input type="checkbox" id="gen5" name="gen5" checked="checked">
+        </div>
+        <div>
+          <label for="gen6">Generation 6</label>
+          <input type="checkbox" id="gen6" name="gen6" checked="checked">
+        </div>
+    </div>
+    <div class="centerForm">
+      <div>
+        <label for="bug">Bug</label>
+        <input type="checkbox" id="bug" name="bug" checked="checked" >
+      </div>
+      <div>
+        <label for="dark">Dark</label>
+        <input type="checkbox" id="dark" name="dark" checked="checked">
+      </div>
+      <div>
+        <label for="dragon">Dragon</label>
+        <input type="checkbox" id="dragon" name="dragon" checked="checked">
+      </div>
+      <div>
+        <label for="electric">Electric</label>
+        <input type="checkbox" id="electric" name="electric" checked="checked">
+      </div>
+      <div>
+        <label for="fairy">Fairy</label>
+        <input type="checkbox" id="fairy" name="fairy" checked="checked">
+      </div>
+      <div>
+        <label for="fighting">Fighting</label>
+        <input type="checkbox" id="fighting" name="fighting" checked="checked">
+      </div>
+      <div>
+        <label for="fire">Fire</label>
+        <input type="checkbox" id="fire" name="fire" checked="checked">
+      </div>
+      <div>
+        <label for="flying">Flying</label>
+        <input type="checkbox" id="flying" name="flying" checked="checked">
+      </div>
+      <div>
+        <label for="ghost">Ghost</label>
+        <input type="checkbox" id="ghost" name="ghost" checked="checked">
+      </div>
+      <div>
+        <label for="grass">Grass</label>
+        <input type="checkbox" id="grass" name="grass" checked="checked">
+      </div>
+      <div>
+        <label for="ground">Ground</label>
+        <input type="checkbox" id="ground" name="ground" checked="checked">
+      </div>
+      <div>
+        <label for="ice">Ice</label>
+        <input type="checkbox" id="ice" name="ice" checked="checked">
+      </div>
+      <div>
+        <label for="normal">Normal</label>
+        <input type="checkbox" id="normal" name="normal" checked="checked">
+      </div>
+      <div>
+        <label for="poison">Poison</label>
+        <input type="checkbox" id="poison" name="poison" checked="checked">
+      </div>
+      <div>
+        <label for="psychic">Psychic</label>
+        <input type="checkbox" id="psychic" name="psychic" checked="checked">
+      </div>
+      <div>
+        <label for="rock">Rock</label>
+        <input type="checkbox" id="rock" name="rock" checked="checked">
+      </div>
+     <div>
+        <label for="steel">Steel</label>
+        <input type="checkbox" id="steel" name="steel" checked="checked">
+     </div>
+      <div>
+        <label for="water">Water</label>
+        <input type="checkbox" id="water" name="water" checked="checked">
+      </div>
+    </div>
+    <input type="submit" value="Who's that pokemon?">
+    
+  </form>
+  </div>
+
+  <div class="centerDiv">
+    <h3>Try clicking on any category in the table's header</h3>
+    <table id="pokedex">
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Type 1</th>
+        <th>Type 2</th>
+        <th>Total</th>
+        <th>HP</th>
+        <th>Attack</th>
+        <th>Defence</th>
+        <th>Special Attack</th>
+        <th>Special Defence</th>
+        <th>Speed</th>
+        <th>Generation</th>
+        <th>Legendary</th>
+      </tr>
+    </table>
+  </div>
+  <script src={{url_for('static', filename='test.js')}}></script>
+{% endblock %}

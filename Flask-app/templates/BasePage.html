@@ -1,0 +1,19 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  {% block Head%}{%endblock%}
+  <meta charset="utf-8">
+  <title>{% block Title %}{% endblock %}</title>
+  <link rel="stylesheet" type="text/css" href={{url_for('static', filename='style.css')}}>
+</head>
+
+<body>
+  {% block content%}
+  {% endblock %}
+</body>
+<footer>
+  <p>This webapp is running on a docker container hosting a flask instance.</p>
+  <p>Feel free to inspect element for a look at the final product, this will also be available on my <a href="https://github.com/omarnassif98/Flask-pokedex">github</a> where you can get insight into the back-end.</p>
+</footer>
+</html>
