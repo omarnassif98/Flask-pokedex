@@ -5,17 +5,24 @@ import numpy as np
 
 app = Flask('Flask Pokedex')
 pokemonData= pandas.read_csv('pokeData.csv')
+
+#The landing page
 @app.route('/', methods = ['GET'])
 def LandingPage():
     return render_template('Landing.html')
 
+#The main page, an interface to view and query pokemon data
 @app.route('/dex')
 def PokedexPage():
     return render_template('Pokedex_browser.html')
 
+#When requested this endpoint returns pokedemon data as JSON.
+#It can take two arguments in the http header, gens and types, to allow for a more refined query.
 @app.route('/poke')
 def DexREST():
     querydf = pokemonData.copy()
+    #By default the query object has the data for all pokemon.
+    #However, it then drops the data of pokemon that are not of one of the generations and types supplied
     queryGens = request.args.get('gens', type=str, default='')
     if queryGens != '':
         queryGens = queryGens.split(',')

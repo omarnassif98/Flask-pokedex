@@ -1,9 +1,18 @@
 console.log("Why hello there");
-var table, th;
-var data, numvals;
-table= document.getElementById('pokedex');
+var table, th, data, numvals;
+
+//The base edpoint for querying pokemon data
 const Http = new XMLHttpRequest();
 const RESTurl= String(window.location).slice(0,-3) + 'poke';
+
+//Initialization of the table and sorting  capabilities
+table= document.getElementById('pokedex');
+th = document.getElementsByTagName('th');
+for(let c = 0; c<th.length;c++){
+    th[c].addEventListener('click',retAxis(th[c].innerHTML));
+}
+//This is called by pressing the "Who's that pokemon" button in the pokedex browser
+//SubmitQuery() checks the status of each checkbox and then builds and submits a request with the appropriate arguments
 function SubmitQuery(){
     ClearTable();
     var gens = '', types = '';
@@ -40,6 +49,10 @@ function SubmitQuery(){
     if (document.getElementById('fighting').checked){
         types = types + 'Fighting,';
     }
+    if (document.getElementById('fire').checked){
+        types = types + 'Fire,';
+    }
+    
     if (document.getElementById('electric').checked){
         types = types + 'Electric,';
     }
@@ -85,6 +98,7 @@ function SubmitQuery(){
     LoadDB(RESTurl + '?gens=' + gens + '&types=' + types);
 }
 
+//This function recieves the JSON data returned by the http request and populates the pokedex table
 function LoadDB(_url){
 console.log("Requesting data at endpoint " + _url)
 Http.open("GET",_url);
@@ -96,43 +110,44 @@ Http.onreadystatechange = function() {
         data = JSON.parse(raw);
         console.log('json returned: ' + data)
         numvals = Object.keys(data['#'])
+        //by default, the table is sorted by pokedex number
         console.log(data);
         numvals.forEach(PopulatePokedexEntry);
-        th = document.getElementsByTagName('th');
-        for(let c = 0; c<th.length;c++){
-            th[c].addEventListener('click',retAxis(th[c].innerHTML));
-        }
     }
 };
-workingonrequest = false;
 }
 
+//Called when the user clicks on the header of the table, calls the sorting algorithm with the header as a parameter
 function retAxis(c){
     return function(){
         sortTable(c)
     }
 }
+
+//Sorts the entries of the table based on a supplied parameter
 function sortTable(_col) {
     var valsToSort = [];
-    console.log('sorting table based on pokemon' + _col);
-
+    console.log('sorting table based on pokemon\'s ' + _col);
     for(var i = 0; i < numvals.length; i++){
         valsToSort.push([numvals[i], data[_col][numvals[i]]]);
+        //records the index of an entry along with its associated feature
     }
-    valsToSort = mergesort(valsToSort);
     ClearTable();
-
+    valsToSort = mergesort(valsToSort);
     for (var i = 0; i < valsToSort.length; i++){
         PopulatePokedexEntry(valsToSort[i][0])
     }
 }
 
+//Clears table, important for sorting and making new queries
 function ClearTable(){
     var rows = table.rows;
     for(var i = rows.length-1; i > 0; i--){
         table.deleteRow(i)
     }
 }
+
+//Standard mergesort, this was chosen because of its speed
 function mergesort(_arr){
     if (_arr.length < 2){
         return _arr
@@ -142,8 +157,11 @@ function mergesort(_arr){
     const rightHalf = _arr.slice(midpoint, _arr.length);
     return Combine(mergesort(leftHalf), mergesort(rightHalf));
 }
+
 function Combine(_left,_right){
     let runningAns = [], lIndex = 0, rIndex =0, numCompare = !isNaN(parseInt(_left[0][1]));
+    //If the second argument (the feature to sort by) is a number, it will be pared as an integer
+    //If not, it will be treaded like a string
     while(lIndex < _left.length && rIndex < _right.length){
         if (numCompare){
             if(parseInt(_left[lIndex][1]) < parseInt(_right[rIndex][1])){
@@ -164,8 +182,10 @@ function Combine(_left,_right){
     }
     }
     return runningAns.concat(_left.slice(lIndex, _left.length)).concat(_right.slice(rIndex, _right.length));
+    //If the length of _left and _right are different, there will be 1 extra entry at the end; The biggest value by definition
 }
 
+//Adds an entry to the table based on its index 
 function PopulatePokedexEntry(_index){
     _index = parseInt(_index);
     var newEntry = table.insertRow(-1);

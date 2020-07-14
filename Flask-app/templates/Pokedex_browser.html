@@ -111,6 +111,7 @@
 
   <div class="centerDiv">
     <h3>Try clicking on any category in the table's header</h3>
+    <!--IMPORTANT, the headers should match the headers of the dataframe in the Flask script-->
     <table id="pokedex">
       <tr>
         <th>#</th>
@@ -129,5 +130,5 @@
       </tr>
     </table>
   </div>
-  <script src={{url_for('static', filename='test.js')}}></script>
+  <script src={{url_for('static', filename='script.js')}}></script>
 {% endblock %}
